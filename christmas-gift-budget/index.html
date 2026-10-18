@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas Gift Budget Calculator (Free) | Winterwick Studio</title>
+<meta name="description" content="Free Christmas gift budget calculator. Set a total, add the people on your list by priority, and get a fair split that adds up. Track spending, print or export to CSV.">
+<link rel="canonical" href="https://zebonsa-cyber.github.io/income-lab-sites/christmas-gift-budget/">
+<meta name="theme-color" content="#1f4d3a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1d18" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M16 3c-4 5-4 11 0 15 4-4 4-10 0-15z" fill="%232f6b50"/%3E%3Cpath d="M4 14c4 0 9 2 11 6-5 1-9-1-11-6z" fill="%231f4d3a"/%3E%3Cpath d="M28 14c-4 0-9 2-11 6 5 1 9-1 11-6z" fill="%231f4d3a"/%3E%3Ccircle cx="13" cy="24" r="4" fill="%239b1d36"/%3E%3Ccircle cx="20" cy="25" r="3.4" fill="%23b8293f"/%3E%3Ccircle cx="12" cy="22.6" r="1" fill="%23fff" opacity=".55"/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Winterwick Studio">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Christmas Gift Budget Calculator">
+<meta property="og:description" content="Set a holiday budget, add everyone you are buying for, and get a priority-weighted split that adds up to the cent. Free, private, printable.">
+<meta property="og:url" content="https://zebonsa-cyber.github.io/income-lab-sites/christmas-gift-budget/">
+<meta property="og:image" content="https://zebonsa-cyber.github.io/income-lab-sites/assets/og-gift-budget.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Christmas Gift Budget Calculator by Winterwick Studio">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Christmas Gift Budget Calculator",
+  "url": "https://zebonsa-cyber.github.io/income-lab-sites/christmas-gift-budget/",
+  "description": "Set a total holiday budget, add recipients by group and priority, and get a suggested gift allocation that adds up exactly. Tracks spending per person, prints, and exports to CSV. Works offline; data stays in your browser.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Works offline.",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "image": "https://zebonsa-cyber.github.io/income-lab-sites/assets/og-gift-budget.png",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "Winterwick Studio", "url": "https://zebonsa-cyber.github.io/income-lab-sites/" }
+}
+</script>
+<style>
+@font-face {
+  font-family: "Fraunces Display";
+  src: url("../assets/fonts/fraunces-display-latin.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  color-scheme: light dark;
+  --bg: #faf6ee;
+  --surface: #fffdf8;
+  --surface-2: #f3ecdf;
+  --ink: #1d2a24;
+  --muted: #55625b;
+  --line: #ded4c2;
+  --evergreen: #1f4d3a;
+  --evergreen-ink: #ffffff;
+  --cranberry: #9b1d36;
+  --cranberry-soft: #f6e3e6;
+  --ok: #1f6b45;
+  --focus: #b8862b;
+  --shadow: 0 1px 2px rgba(29, 42, 36, .06), 0 8px 24px rgba(29, 42, 36, .06);
+  --radius: 14px;
+  --serif: "Fraunces Display", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1d18;
+    --surface: #152821;
+    --surface-2: #1b3229;
+    --ink: #f1ebdf;
+    --muted: #b3bdb5;
+    --line: #2e473d;
+    --evergreen: #7cc4a0;
+    --evergreen-ink: #0f1d18;
+    --cranberry: #f08a9c;
+    --cranberry-soft: #3a1c24;
+    --ok: #8fd3ad;
+    --focus: #e8c070;
+    --shadow: none;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--sans);
+  overflow-wrap: break-word;
+}
+img, svg { max-width: 100%; }
+a { color: var(--evergreen); text-underline-offset: .18em; }
+a:hover { color: var(--cranberry); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 .5em; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 7vw, 3.1rem); color: var(--evergreen); }
+h2 { font-size: clamp(1.5rem, 4.5vw, 2rem); }
+h3 { font-size: 1.2rem; }
+p { margin: 0 0 1em; }
+.wrap { width: 100%; max-width: 62rem; margin: 0 auto; padding: 0 16px; }
+.narrow { max-width: 42rem; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--evergreen); color: var(--evergreen-ink); padding: .6em 1em; z-index: 10; }
+.skip:focus { left: 8px; top: 8px; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.site-head { border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.75rem; }
+.brand { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); text-decoration: none; }
+.brand svg { width: 26px; height: 26px; flex: none; }
+.site-foot { border-top: 1px solid var(--line); margin-top: 4rem; padding: 2rem 0 2.5rem; color: var(--muted); font-size: .95rem; }
+.site-foot .brand { font-size: 1.05rem; }
+.site-foot p { margin: .6rem 0 0; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45em;
+  min-height: 44px; padding: .55em 1.1em; border-radius: 999px;
+  border: 1.5px solid var(--evergreen); background: var(--evergreen); color: var(--evergreen-ink);
+  font: 600 1rem/1.2 var(--sans); text-decoration: none; cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); color: var(--evergreen-ink); }
+.btn.ghost { background: transparent; color: var(--evergreen); }
+.btn.ghost:hover { background: var(--surface-2); }
+.btn.berry { background: var(--cranberry); border-color: var(--cranberry); color: #fff; }
+@media (prefers-color-scheme: dark) { .btn.berry { color: #1a0c10; } }
+.btn.small { min-height: 38px; padding: .4em .9em; font-size: .95rem; }
+.kicker { font: 600 .8rem/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--cranberry); margin-bottom: .6rem; }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 40rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.rule { height: 10px; margin: 2.5rem 0; background:
+  radial-gradient(circle at 5px 5px, var(--cranberry) 2px, transparent 2.5px) 0 0 / 22px 10px repeat-x; opacity: .55; border: 0; }
+
+/* ---- tool page ---- */
+.hero { padding-top: 2.5rem; padding-bottom: 1.5rem; }
+.hero .lede { margin-bottom: 0; }
+.privacy { display: flex; gap: .5rem; align-items: flex-start; margin-top: 1rem; color: var(--muted); font-size: .95rem; }
+.privacy svg { flex: none; width: 18px; height: 18px; margin-top: .2rem; fill: none; stroke: var(--evergreen); stroke-width: 2; }
+
+.tool { --cur: "$"; padding: 1.25rem 16px 1.5rem; }
+@media (min-width: 560px) { .tool { padding: 1.75rem 1.75rem 2rem; } }
+.tool h2 { font-size: 1.35rem; margin-bottom: .9rem; }
+.tool section + section { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+
+.fld { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.fld > span { font-size: .85rem; font-weight: 600; color: var(--muted); }
+.fld input, .fld select {
+  width: 100%; min-width: 0; min-height: 44px; padding: .5rem .7rem;
+  font: inherit; font-size: 1rem; color: var(--ink);
+  background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px;
+}
+.fld select { appearance: none; -webkit-appearance: none; padding-right: 2rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 16px) 52%, calc(100% - 11px) 52%; background-size: 5px 5px; background-repeat: no-repeat; }
+.fld input:hover, .fld select:hover { border-color: var(--muted); }
+.fld input:focus-visible, .fld select:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--evergreen); }
+.fld input[aria-invalid="true"] { border-color: var(--cranberry); background: var(--cranberry-soft); }
+.hint { font-size: .85rem; color: var(--muted); }
+.money { position: relative; display: block; }
+.money::before { content: var(--cur); position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.money input { padding-left: 1.7rem; }
+.pct { position: relative; display: block; }
+.pct::after { content: "%"; position: absolute; right: .8rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.pct input { padding-right: 2rem; }
+.check { display: flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .95rem; cursor: pointer; }
+.check input { width: 22px; height: 22px; accent-color: var(--evergreen); margin: 0; flex: none; }
+
+.settings { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+.settings .fld-budget { grid-column: 1 / -1; }
+.settings .fld-budget input { font-size: 1.35rem; min-height: 52px; font-weight: 600; }
+.settings .check { grid-column: 1 / -1; }
+@media (min-width: 760px) {
+  .settings { grid-template-columns: 2fr 1fr 1fr; align-items: end; }
+  .settings .fld-budget { grid-column: auto; }
+}
+
+.summary { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.5rem 0 1rem; }
+@media (min-width: 760px) { .summary { grid-template-columns: repeat(4, 1fr); } }
+.stat { background: var(--surface-2); border-radius: 12px; padding: .8rem .9rem; min-width: 0; }
+.stat-l { display: block; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.stat-v { display: block; font-family: var(--serif); font-size: clamp(1.3rem, 5.2vw, 1.75rem); line-height: 1.2; margin-top: .2rem; font-variant-numeric: lining-nums tabular-nums; }
+.stat.is-left .stat-v { color: var(--ok); }
+.stat.is-over { background: var(--cranberry-soft); }
+.stat.is-over .stat-v { color: var(--cranberry); }
+.bar { height: 10px; border-radius: 99px; background: var(--surface-2); overflow: hidden; position: relative; }
+.bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--evergreen); border-radius: 99px; transition: width .25s ease; }
+.bar.over i { background: var(--cranberry); }
+.bar-legend { display: flex; justify-content: space-between; gap: 1rem; font-size: .85rem; color: var(--muted); margin-top: .35rem; }
+.msg { margin: 1rem 0 0; padding: .75rem .9rem; border-radius: 10px; background: var(--surface-2); font-size: .98rem; }
+.msg.over { background: var(--cranberry-soft); color: var(--ink); border-left: 4px solid var(--cranberry); }
+.msg.ok { border-left: 4px solid var(--evergreen); }
+
+.add { display: grid; gap: .8rem; grid-template-columns: 1fr 1fr; align-items: end; }
+.add .fld-name { grid-column: 1 / -1; }
+.add .btn { width: 100%; }
+@media (min-width: 760px) {
+  .add { grid-template-columns: 2fr 1.1fr 1.3fr 1.1fr auto; }
+  .add .fld-name { grid-column: auto; }
+}
+.add-err { color: var(--cranberry); font-size: .9rem; margin: .5rem 0 0; min-height: 1.2em; }
+
+.people { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: .9rem; }
+.person { border: 1px solid var(--line); border-radius: 12px; padding: .9rem; background: var(--bg); }
+.person.is-over { border-color: var(--cranberry); }
+.p-head { display: flex; gap: .6rem; align-items: end; }
+.p-head .fld { flex: 1; }
+.p-head .fld input { font-weight: 600; }
+.icon-btn { flex: none; width: 44px; height: 44px; display: inline-grid; place-items: center; border-radius: 10px; border: 1.5px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.icon-btn:hover { color: var(--cranberry); border-color: var(--cranberry); }
+.icon-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; }
+.p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: .7rem; }
+@media (min-width: 760px) { .p-grid { grid-template-columns: repeat(4, 1fr); } }
+.p-idea { margin-top: .7rem; }
+.p-out { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem 1rem; margin: .75rem 0 0; font-size: .95rem; }
+.o-plan strong { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; font-variant-numeric: lining-nums tabular-nums; }
+.o-plan em { font-style: normal; color: var(--muted); font-size: .88rem; }
+.o-status { color: var(--muted); }
+.o-status.good { color: var(--ok); font-weight: 600; }
+.o-status.over { color: var(--cranberry); font-weight: 600; }
+.empty { margin: 1.25rem 0 0; padding: 1.25rem; border: 1.5px dashed var(--line); border-radius: 12px; color: var(--muted); text-align: center; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--evergreen); text-decoration: underline; text-underline-offset: .18em; cursor: pointer; }
+
+.groups { width: 100%; border-collapse: collapse; font-size: .97rem; font-variant-numeric: tabular-nums; }
+.groups th, .groups td { text-align: right; padding: .55rem .4rem; border-bottom: 1px solid var(--line); }
+.groups th:first-child, .groups td:first-child { text-align: left; }
+.groups thead th { font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.groups tfoot td { font-weight: 700; border-bottom: 0; }
+.toolbar { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+.toolbar .spacer { flex: 1; }
+.store-note { font-size: .88rem; color: var(--muted); margin: .9rem 0 0; }
+
+.content { margin-top: 3rem; }
+.content h2 { margin-top: 2.5rem; }
+.content h3 { margin: 1.6rem 0 .35rem; color: var(--evergreen); }
+.steps { padding-left: 1.3rem; margin: 0 0 1rem; }
+.steps li { margin-bottom: .55rem; padding-left: .25rem; }
+.steps li::marker { color: var(--cranberry); font-weight: 700; }
+
+.cta { padding: 1.5rem 16px; margin: 2.5rem 0; display: grid; gap: 1rem; align-items: center; }
+@media (min-width: 560px) { .cta { padding: 1.75rem; } }
+@media (min-width: 760px) { .cta { grid-template-columns: 1fr auto; } }
+.cta h2 { margin: 0 0 .35rem; font-size: 1.5rem; }
+.cta p { margin: 0; color: var(--muted); }
+.cta.planner { border-top: 4px solid var(--cranberry); }
+.cta.sampler { background: var(--surface-2); box-shadow: none; }
+.disclose { font-size: .85rem; color: var(--muted); margin: 2.5rem 0 -1.75rem; }
+
+.print-sheet { display: none; }
+@media print {
+  @page { margin: 14mm; }
+  :root { color-scheme: light; }
+  body { background: #fff !important; color: #000 !important; font-size: 10.5pt; }
+  .site-head, .skip, main > *:not(.print-sheet), .site-foot nav { display: none !important; }
+  .site-foot { margin: 0; padding: 6mm 0 0; border-top: 1px solid #999; color: #444; }
+  .site-foot .brand { color: #000; }
+  .print-sheet { display: block; color: #000; }
+  .print-sheet h1 { color: #000; font-size: 20pt; margin: 0 0 2mm; }
+  .print-sheet .ps-meta { color: #444; margin: 0 0 5mm; }
+  .ps-totals { display: flex; flex-wrap: wrap; gap: 3mm 4mm; margin: 0 0 5mm; }
+  .ps-totals div { border: 1px solid #999; border-radius: 2mm; padding: 2mm 3mm; flex: 1 1 0; min-width: 26mm; }
+  .ps-totals span { display: block; font-size: 8pt; text-transform: uppercase; letter-spacing: .05em; color: #444; }
+  .ps-totals b { font-size: 13pt; }
+  .ps-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .ps-table th, .ps-table td { border-bottom: 1px solid #bbb; padding: 1.8mm 1.5mm; text-align: left; vertical-align: top; }
+  .ps-table th { font-size: 8pt; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1.5px solid #000; }
+  .ps-table td.n, .ps-table th.n { text-align: right; white-space: nowrap; }
+  .ps-table td.box { width: 7mm; }
+  .ps-table td.box::before { content: ""; display: inline-block; width: 3.5mm; height: 3.5mm; border: 1px solid #000; }
+  .ps-table tr { break-inside: avoid; }
+  .ps-table tfoot td { font-weight: 700; border-bottom: 0; border-top: 1.5px solid #000; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#tool">Skip to the calculator</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3c-4 5-4 11 0 15 4-4 4-10 0-15z" fill="#2f6b50"/><path d="M4 14c4 0 9 2 11 6-5 1-9-1-11-6z" fill="#1f4d3a"/><path d="M28 14c-4 0-9 2-11 6 5 1 9-1 11-6z" fill="#1f4d3a"/><circle cx="13" cy="24" r="4" fill="#9b1d36"/><circle cx="20" cy="25" r="3.4" fill="#b8293f"/><circle cx="12" cy="22.6" r="1" fill="#fff" opacity=".55"/></svg><span>Winterwick Studio</span></a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap hero">
+    <p class="kicker">Free holiday tool</p>
+    <h1>Christmas Gift Budget Calculator</h1>
+    <p class="lede">Set one total, list everyone you are buying for, and get a fair split by priority that adds up to the cent. Then track what you actually spend.</p>
+    <p class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Private by design: your list is saved only in this browser, on this device. It works offline too.</span></p>
+  </div>
+
+  <div class="wrap">
+    <div class="card tool" id="tool" tabindex="-1">
+      <section aria-labelledby="h-budget">
+        <h2 id="h-budget">1. Your budget</h2>
+        <div class="settings">
+          <label class="fld fld-budget"><span>Total gift budget</span>
+            <span class="money"><input id="budget" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="budget-err"></span>
+            <span class="hint" id="budget-err" aria-live="polite"></span>
+          </label>
+          <label class="fld"><span>Currency</span>
+            <select id="currency">
+              <option value="$">$ Dollar</option>
+              <option value="£">£ Pound</option>
+              <option value="€">€ Euro</option>
+              <option value="">No symbol</option>
+            </select>
+          </label>
+          <label class="fld"><span>Keep for extras</span>
+            <span class="pct"><input id="reserve" type="number" inputmode="numeric" min="0" max="50" step="1" aria-describedby="reserve-hint"></span>
+          </label>
+          <span class="hint" id="reserve-hint" style="grid-column:1/-1;margin-top:-.5rem">Extras covers wrapping, cards, postage and last-minute additions. 10% is a sensible start; up to 50% allowed.</span>
+          <label class="check"><input id="round" type="checkbox"> Round suggestions to whole amounts</label>
+        </div>
+
+        <div class="summary">
+          <div class="stat"><span class="stat-l">Budget</span><span class="stat-v" id="s-budget">–</span></div>
+          <div class="stat" id="st-planned"><span class="stat-l">Planned</span><span class="stat-v" id="s-planned">–</span></div>
+          <div class="stat"><span class="stat-l">Spent</span><span class="stat-v" id="s-spent">–</span></div>
+          <div class="stat" id="st-left"><span class="stat-l" id="s-left-l">Left to spend</span><span class="stat-v" id="s-left">–</span></div>
+        </div>
+        <div class="bar" id="bar" aria-hidden="true"><i></i></div>
+        <div class="bar-legend" aria-hidden="true"><span id="bar-l">Spent 0%</span><span id="bar-r">of budget</span></div>
+        <p class="msg" id="s-msg">Enter your total budget to see suggested amounts.</p>
+      </section>
+
+      <section aria-labelledby="h-people">
+        <h2 id="h-people">2. The people on your list</h2>
+        <form class="add" id="add-form" novalidate>
+          <label class="fld fld-name"><span>Name</span><input id="add-name" type="text" maxlength="60" autocomplete="off" placeholder="e.g. Grandma Rose" aria-describedby="add-err"></label>
+          <label class="fld"><span>Group</span>
+            <select id="add-group"><option value="family" selected>Family</option><option value="friends">Friends</option><option value="work">Work</option><option value="kids">Kids</option><option value="other">Other</option></select>
+          </label>
+          <label class="fld"><span>Priority</span>
+            <select id="add-pri"><option value="1">1 – Top</option><option value="2" selected>2 – Middle</option><option value="3">3 – Small</option></select>
+          </label>
+          <label class="fld"><span>Set amount <small>(optional)</small></span><span class="money"><input id="add-fixed" type="text" inputmode="decimal" autocomplete="off" placeholder="Auto"></span></label>
+          <button class="btn" type="submit">Add person</button>
+        </form>
+        <p class="add-err" id="add-err" aria-live="polite"></p>
+        <p class="hint">Priority 1 gets three shares of the budget, priority 2 two shares, priority 3 one share. A set amount is kept exactly; everyone else shares what remains.</p>
+        <ul class="people" id="people" aria-label="Gift recipients"></ul>
+        <p class="empty" id="empty">Nobody on your list yet. Add someone above, or <button type="button" class="linkish" id="load-example">load an example list</button> to see how it works.</p>
+      </section>
+
+      <section aria-labelledby="h-groups" id="groups-sec" hidden>
+        <h2 id="h-groups">3. By group</h2>
+        <table class="groups">
+          <caption class="sr-only">Planned and spent totals by group</caption>
+          <thead><tr><th scope="col">Group</th><th scope="col">People</th><th scope="col">Planned</th><th scope="col">Spent</th></tr></thead>
+          <tbody id="groups-body"></tbody>
+          <tfoot><tr><td>All</td><td id="g-count"></td><td id="g-planned"></td><td id="g-spent"></td></tr></tfoot>
+        </table>
+      </section>
+
+      <div class="toolbar">
+        <button type="button" class="btn" id="export">Export CSV</button>
+        <button type="button" class="btn ghost" id="print">Print list</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn ghost small" id="clear">Clear everything</button>
+      </div>
+      <p class="store-note" id="store-note">Saved automatically in this browser.</p>
+      <p class="sr-only" id="announce" aria-live="polite" aria-atomic="true"></p>
+    </div>
+  </div>
+
+  <div class="wrap narrow content">
+    <h2 id="how">How to use the gift budget calculator</h2>
+    <ol class="steps">
+      <li><strong>Enter your total budget:</strong> everything you plan to spend on gifts this season, in one number.</li>
+      <li><strong>Choose how much to keep for extras.</strong> Wrapping, cards and postage come out of the same pocket, so set them aside first.</li>
+      <li><strong>Add each person</strong> with a group and a priority. Higher priority means a bigger share of what is left.</li>
+      <li><strong>Already know a price?</strong> Type it into <em>Set amount</em>. That person keeps it, and the rest is shared among everyone else.</li>
+      <li><strong>As you shop, enter what you paid</strong> in <em>Spent</em>. The totals show what is left and turn red if you go over.</li>
+    </ol>
+    <p>Your list saves itself in this browser. To keep a copy elsewhere or share it with a partner, use <strong>Export CSV</strong> (opens in any spreadsheet) or <strong>Print list</strong> for a tidy checklist to take shopping.</p>
+
+    <p class="disclose">We may earn from links to our own products.</p>
+    <aside class="card cta planner" aria-labelledby="cta-planner-h">
+      <div>
+        <h2 id="cta-planner-h">Prefer it on paper?</h2>
+        <p>The printable Christmas Planner from Winterwick Studio keeps your gift list, budget and holiday to-dos together in one place you can pin to the fridge.</p>
+      </div>
+      <a class="btn berry" href="{{PLANNER_URL}}">See the Christmas Planner</a>
+    </aside>
+
+    <h2 id="tips">Gift budgeting tips that actually help</h2>
+    <h3>Budget from cash, not hope</h3>
+    <p>Set the total at what you can pay off by the end of January, from savings or the next couple of paychecks. If last year's card statement disagrees with your memory, trust the statement. Most people underestimate because they count the gifts and forget everything around them.</p>
+    <h3>Keep 10 to 15% for the extras</h3>
+    <p>Wrapping paper, tape, cards, postage, batteries and the neighbour who surprises you with cookies add up fast. That is what the extras reserve is for. Whatever is left in December is a head start on next year.</p>
+    <h3>Decide the total first, then divide</h3>
+    <p>Working top-down stops the slow creep of "just a little more" on every person. When one gift runs over, take the difference from someone else's line or from the extras, rather than letting the total drift.</p>
+    <h3>Suggest a limit early</h3>
+    <p>Families and offices are often relieved when someone proposes a spending cap, or a gift exchange where each person buys for one drawn name. Raise it in October or early November, before anyone has started shopping.</p>
+    <h3>For kids: want, need, wear, read</h3>
+    <p>One thing they want, one they need, one to wear and one to read. It keeps things fair between siblings and puts a natural ceiling on the pile.</p>
+    <h3>Log it the moment you buy</h3>
+    <p>Type what you paid into <em>Spent</em> straight away, and keep receipts together, with gift receipts for anything that might be exchanged. Note return windows: some stores extend them for the holidays, many do not.</p>
+    <h3>A sale only saves money if it was on the list</h3>
+    <p>A discounted item nobody needed is spending, not saving. Watch shipping cut-off dates too, because paying for express delivery in the last week quietly cancels out the discounts you found.</p>
+    <h3>Start next year in January</h3>
+    <p>Divide this year's total by twelve and set that aside each month. Next December becomes a withdrawal instead of a bill.</p>
+
+    <aside class="card cta sampler" aria-labelledby="cta-sampler-h">
+      <div>
+        <h2 id="cta-sampler-h">Get a free printable sampler</h2>
+        <p>Join the Winterwick Studio email list and we will send you a free sampler of our holiday printables. Unsubscribe any time.</p>
+      </div>
+      <a class="btn" href="{{SAMPLER_URL}}">Send me the free sampler</a>
+    </aside>
+  </div>
+
+  <div class="print-sheet" id="print-sheet" aria-hidden="true">
+    <h1>Christmas gift budget</h1>
+    <p class="ps-meta" id="ps-meta"></p>
+    <div class="ps-totals" id="ps-totals"></div>
+    <table class="ps-table">
+      <thead><tr><th></th><th>Name</th><th>Group</th><th>Priority</th><th>Gift idea</th><th class="n">Planned</th><th class="n">Spent</th><th class="n">Left</th></tr></thead>
+      <tbody id="ps-body"></tbody>
+      <tfoot><tr><td></td><td colspan="4">Total</td><td class="n" id="ps-planned"></td><td class="n" id="ps-spent"></td><td class="n" id="ps-left"></td></tr></tfoot>
+    </table>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="brand" href="../"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3c-4 5-4 11 0 15 4-4 4-10 0-15z" fill="#2f6b50"/><path d="M4 14c4 0 9 2 11 6-5 1-9-1-11-6z" fill="#1f4d3a"/><path d="M28 14c-4 0-9 2-11 6 5 1 9-1 11-6z" fill="#1f4d3a"/><circle cx="13" cy="24" r="4" fill="#9b1d36"/><circle cx="20" cy="25" r="3.4" fill="#b8293f"/><circle cx="12" cy="22.6" r="1" fill="#fff" opacity=".55"/></svg><span>Winterwick Studio</span></a>
+    <nav aria-label="Footer"><p><a href="../christmas-gift-budget/">Christmas Gift Budget Calculator</a></p></nav>
+    <p>&copy; 2026 Winterwick Studio. Free tools for a calmer holiday. Nothing you type is sent anywhere.</p>
+  </div>
+</footer>
+
+<template id="row-tpl">
+  <li class="person">
+    <div class="p-head">
+      <label class="fld"><span>Name</span><input type="text" data-f="name" maxlength="60" autocomplete="off"></label>
+      <button type="button" class="icon-btn" data-act="del"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="p-grid">
+      <label class="fld"><span>Group</span><select data-f="group"><option value="family" selected>Family</option><option value="friends">Friends</option><option value="work">Work</option><option value="kids">Kids</option><option value="other">Other</option></select></label>
+      <label class="fld"><span>Priority</span><select data-f="priority"><option value="1">1 – Top</option><option value="2" selected>2 – Middle</option><option value="3">3 – Small</option></select></label>
+      <label class="fld"><span>Set amount</span><span class="money"><input type="text" data-f="fixed" inputmode="decimal" autocomplete="off" placeholder="Auto"></span></label>
+      <label class="fld"><span>Spent</span><span class="money"><input type="text" data-f="spent" inputmode="decimal" autocomplete="off" placeholder="0"></span></label>
+    </div>
+    <label class="fld p-idea"><span>Gift idea</span><input type="text" data-f="idea" maxlength="120" autocomplete="off" placeholder="Optional"></label>
+    <p class="p-out"><span class="o-plan"></span><span class="o-status"></span></p>
+  </li>
+</template>
+
+<script id="core">
+/*
+ * Gift budget core logic: pure functions, no DOM.
+ * Inlined into christmas-gift-budget/index.html by src/build.py and
+ * required directly by src/test-core.js under node.
+ * All money is handled as integer cents to avoid floating-point drift.
+ */
+(function (root) {
+  'use strict';
+
+  // Priority 1 is the most important. Weights decide the share of the pool.
+  var WEIGHTS = { 1: 3, 2: 2, 3: 1 };
+  var GROUPS = ['family', 'friends', 'work', 'kids', 'other'];
+  var MAX_CENTS = 100000000000; // 1,000,000,000.00, a sanity cap
+
+  /**
+   * Parse a typed amount into integer cents.
+   * Returns null for an empty field and NaN for anything invalid.
+   * Accepts "1,234.50", "1234.5", "$40", "12,50" (decimal comma).
+   */
+  function parseMoney(input) {
+    if (input === null || input === undefined) return null;
+    var s = String(input).replace(/[\s '$£€¥]/g, '');
+    if (s === '') return null;
+    if (/[^\d.,]/.test(s)) return NaN;
+    if (s.indexOf('.') === -1 && /^\d+,\d{1,2}$/.test(s)) {
+      s = s.replace(',', '.');
+    } else {
+      s = s.replace(/,/g, '');
+    }
+    var m = /^(\d*)(?:\.(\d{0,2}))?$/.exec(s);
+    if (!m || (m[1] === '' && !m[2])) return NaN;
+    var whole = m[1] === '' ? 0 : parseInt(m[1], 10);
+    var frac = m[2] ? parseInt((m[2] + '00').slice(0, 2), 10) : 0;
+    var cents = whole * 100 + frac;
+    if (!isFinite(cents) || cents > MAX_CENTS) return NaN;
+    return cents;
+  }
+
+  function isAmount(c) {
+    return typeof c === 'number' && isFinite(c) && c >= 0;
+  }
+
+  function weightOf(priority) {
+    return WEIGHTS[priority] || WEIGHTS[2];
+  }
+
+  /**
+   * Split the budget.
+   *   budget = reserve (extras) + fixed amounts + suggested amounts (+ unassigned)
+   * People with a fixed amount keep it. Everyone else shares what is left,
+   * weighted by priority, using the largest-remainder method so the shares
+   * always add up exactly. With roundWhole, shares are whole currency units
+   * and any odd cents go to the extras reserve.
+   *
+   * opts: { budgetCents, reservePct, roundWhole, people: [{ id, priority, fixedCents }] }
+   */
+  function allocate(opts) {
+    var budget = isAmount(opts.budgetCents) ? Math.floor(opts.budgetCents) : 0;
+    var unit = opts.roundWhole ? 100 : 1;
+    var pct = Number(opts.reservePct);
+    if (!isFinite(pct) || pct < 0) pct = 0;
+    if (pct > 50) pct = 50;
+    var people = opts.people || [];
+
+    var reserve = Math.round((budget * pct) / 100 / unit) * unit;
+    if (reserve > budget) reserve = budget;
+
+    var fixedTotal = 0;
+    var flex = [];
+    people.forEach(function (p, i) {
+      if (isAmount(p.fixedCents)) fixedTotal += p.fixedCents;
+      else flex.push({ id: p.id, w: weightOf(p.priority), i: i });
+    });
+
+    var pool = budget - reserve - fixedTotal;
+    var suggestions = {};
+    var overPlan = 0;
+    var unassigned = 0;
+
+    if (pool < 0) {
+      overPlan = -pool;
+      flex.forEach(function (f) { suggestions[f.id] = 0; });
+    } else if (flex.length === 0) {
+      unassigned = pool;
+    } else {
+      var units = Math.floor(pool / unit);
+      var leftover = pool - units * unit;
+      var totalW = flex.reduce(function (t, f) { return t + f.w; }, 0);
+      var given = 0;
+      flex.forEach(function (f) {
+        var num = units * f.w;
+        f.base = Math.floor(num / totalW);
+        f.rem = num - f.base * totalW;
+        given += f.base;
+      });
+      var order = flex.slice().sort(function (a, b) {
+        return b.rem - a.rem || b.w - a.w || a.i - b.i;
+      });
+      for (var k = 0; k < units - given; k++) order[k].base += 1;
+      flex.forEach(function (f) { suggestions[f.id] = f.base * unit; });
+      reserve += leftover; // sub-unit cents stay with extras so gifts stay round
+    }
+
+    var planned = {};
+    var plannedTotal = 0;
+    people.forEach(function (p) {
+      var v = isAmount(p.fixedCents) ? p.fixedCents : suggestions[p.id] || 0;
+      planned[p.id] = v;
+      plannedTotal += v;
+    });
+
+    return {
+      budget: budget,
+      reserve: reserve,
+      fixedTotal: fixedTotal,
+      pool: Math.max(pool, 0),
+      suggestions: suggestions,
+      planned: planned,
+      plannedTotal: plannedTotal,
+      overPlan: overPlan,
+      unassigned: unassigned,
+      flexCount: flex.length
+    };
+  }
+
+  /** Totals for spending, per person and per group. */
+  function summarize(people, alloc) {
+    var groups = {};
+    GROUPS.forEach(function (g) { groups[g] = { count: 0, planned: 0, spent: 0 }; });
+    var perPerson = {};
+    var spentTotal = 0;
+    var stillToBuy = 0;
+    people.forEach(function (p) {
+      var spent = isAmount(p.spentCents) ? p.spentCents : 0;
+      var plan = alloc.planned[p.id] || 0;
+      var g = groups[p.group] ? p.group : 'other';
+      groups[g].count += 1;
+      groups[g].planned += plan;
+      groups[g].spent += spent;
+      spentTotal += spent;
+      if (plan > spent) stillToBuy += plan - spent;
+      perPerson[p.id] = { planned: plan, spent: spent, remaining: plan - spent };
+    });
+    return {
+      groups: groups,
+      perPerson: perPerson,
+      spentTotal: spentTotal,
+      stillToBuy: stillToBuy,
+      leftInBudget: alloc.budget - spentTotal
+    };
+  }
+
+  /** cents -> "12.50" for spreadsheets (no symbol, dot decimal). */
+  function plainAmount(c) {
+    var neg = c < 0;
+    c = Math.abs(Math.round(c));
+    var s = Math.floor(c / 100) + '.' + ('0' + (c % 100)).slice(-2);
+    return neg ? '-' + s : s;
+  }
+
+  /** Rows (arrays of strings/numbers) -> RFC 4180 CSV with formula guarding. */
+  function toCSV(rows) {
+    return rows.map(function (row) {
+      return row.map(function (cell) {
+        var s = cell === null || cell === undefined ? '' : String(cell);
+        if (/^[=+\-@\t\r]/.test(s) && !/^-?\d+(\.\d+)?$/.test(s)) s = "'" + s;
+        if (/[",\r\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
+        return s;
+      }).join(',');
+    }).join('\r\n') + '\r\n';
+  }
+
+  var api = {
+    WEIGHTS: WEIGHTS,
+    GROUPS: GROUPS,
+    parseMoney: parseMoney,
+    isAmount: isAmount,
+    allocate: allocate,
+    summarize: summarize,
+    plainAmount: plainAmount,
+    toCSV: toCSV
+  };
+
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.GiftBudget = api;
+})(this);
+</script>
+<script id="app">
+/* Gift budget UI. Depends on window.GiftBudget (budget-core.js). */
+(function () {
+  'use strict';
+  var G = window.GiftBudget;
+  var KEY = 'winterwick.giftBudget.v1';
+  var GROUP_LABEL = { family: 'Family', friends: 'Friends', work: 'Work', kids: 'Kids', other: 'Other' };
+  var PRI_LABEL = { 1: '1 – Top', 2: '2 – Middle', 3: '3 – Small' };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var el = {
+    tool: $('tool'), budget: $('budget'), budgetErr: $('budget-err'), currency: $('currency'),
+    reserve: $('reserve'), round: $('round'), list: $('people'), empty: $('empty'),
+    addForm: $('add-form'), addName: $('add-name'), addGroup: $('add-group'), addPri: $('add-pri'),
+    addFixed: $('add-fixed'), addErr: $('add-err'), tpl: $('row-tpl'),
+    sBudget: $('s-budget'), sPlanned: $('s-planned'), sSpent: $('s-spent'), sLeft: $('s-left'),
+    sLeftL: $('s-left-l'), stLeft: $('st-left'), stPlanned: $('st-planned'), msg: $('s-msg'),
+    bar: $('bar'), barL: $('bar-l'), barR: $('bar-r'),
+    groupsSec: $('groups-sec'), groupsBody: $('groups-body'),
+    gCount: $('g-count'), gPlanned: $('g-planned'), gSpent: $('g-spent'),
+    storeNote: $('store-note'), announce: $('announce')
+  };
+
+  var state = defaults();
+  var storageOK = true;
+
+  function defaults() {
+    return { v: 1, budget: null, currency: '$', reservePct: 10, roundWhole: true, people: [] };
+  }
+
+  /* ---------- storage (always guarded) ---------- */
+  function load() {
+    try {
+      var raw = window.localStorage.getItem(KEY);
+      if (!raw) return;
+      var s = JSON.parse(raw);
+      if (!s || typeof s !== 'object' || !Array.isArray(s.people)) return;
+      var d = defaults();
+      d.budget = G.isAmount(s.budget) ? s.budget : null;
+      d.currency = ['$', '£', '€', ''].indexOf(s.currency) >= 0 ? s.currency : '$';
+      d.reservePct = clampPct(s.reservePct);
+      d.roundWhole = s.roundWhole !== false;
+      d.people = s.people.filter(function (p) { return p && typeof p === 'object'; }).slice(0, 500).map(function (p) {
+        return {
+          id: String(p.id || newId()),
+          name: String(p.name || '').slice(0, 60),
+          group: GROUP_LABEL[p.group] ? p.group : 'other',
+          priority: [1, 2, 3].indexOf(+p.priority) >= 0 ? +p.priority : 2,
+          fixedCents: G.isAmount(p.fixedCents) ? p.fixedCents : null,
+          spentCents: G.isAmount(p.spentCents) ? p.spentCents : null,
+          idea: String(p.idea || '').slice(0, 120)
+        };
+      });
+      state = d;
+    } catch (e) { /* unreadable or blocked storage: start fresh */ }
+  }
+
+  function save() {
+    try {
+      window.localStorage.setItem(KEY, JSON.stringify(state));
+      if (!storageOK) { storageOK = true; el.storeNote.textContent = 'Saved automatically in this browser.'; }
+    } catch (e) {
+      if (storageOK) {
+        storageOK = false;
+        el.storeNote.textContent = 'This browser is not letting the page save (private mode or blocked storage). Use Export CSV to keep a copy.';
+      }
+    }
+  }
+
+  /* ---------- helpers ---------- */
+  function newId() { return 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function clampPct(v) { v = Math.round(Number(v)); return isFinite(v) ? Math.min(50, Math.max(0, v)) : 10; }
+
+  function fmt(c) {
+    var neg = c < 0;
+    c = Math.abs(Math.round(c));
+    var whole = Math.floor(c / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    var frac = c % 100;
+    var s = state.currency + whole + (frac || !state.roundWhole ? '.' + ('0' + frac).slice(-2) : '');
+    return neg ? '−' + s : s;
+  }
+  function plainInput(c) {
+    if (!G.isAmount(c)) return '';
+    return c % 100 ? G.plainAmount(c) : String(c / 100);
+  }
+  function say(text) {
+    el.announce.textContent = '';
+    window.setTimeout(function () { el.announce.textContent = text; }, 30);
+  }
+  function displayName(p, i) { return p.name.trim() || 'Person ' + (i + 1); }
+  function moneyField(input, onValue) {
+    var c = G.parseMoney(input.value);
+    var bad = typeof c === 'number' && isNaN(c);
+    input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    onValue(bad ? null : c, bad);
+  }
+
+  /* ---------- rows ---------- */
+  function buildRow(p) {
+    var li = el.tpl.content.firstElementChild.cloneNode(true);
+    li.dataset.id = p.id;
+    li.querySelector('[data-f="name"]').value = p.name;
+    li.querySelector('[data-f="group"]').value = p.group;
+    li.querySelector('[data-f="priority"]').value = String(p.priority);
+    li.querySelector('[data-f="fixed"]').value = plainInput(p.fixedCents);
+    li.querySelector('[data-f="spent"]').value = plainInput(p.spentCents);
+    li.querySelector('[data-f="idea"]').value = p.idea;
+    return li;
+  }
+
+  function renderList() {
+    el.list.textContent = '';
+    state.people.forEach(function (p) { el.list.appendChild(buildRow(p)); });
+    update();
+  }
+
+  function findPerson(id) {
+    for (var i = 0; i < state.people.length; i++) if (state.people[i].id === id) return i;
+    return -1;
+  }
+
+  /* ---------- live outputs ---------- */
+  function update() {
+    var root = el.tool;
+    root.style.setProperty('--cur', JSON.stringify(state.currency));
+    root.classList.toggle('no-cur', state.currency === '');
+
+    var budget = G.isAmount(state.budget) ? state.budget : 0;
+    var a = G.allocate({ budgetCents: budget, reservePct: state.reservePct, roundWhole: state.roundWhole, people: state.people });
+    var s = G.summarize(state.people, a);
+    var has = state.people.length > 0;
+
+    el.sBudget.textContent = G.isAmount(state.budget) ? fmt(budget) : '–';
+    el.sPlanned.textContent = has ? fmt(a.plannedTotal) : '–';
+    el.stPlanned.classList.toggle('is-over', a.overPlan > 0);
+    el.sSpent.textContent = fmt(s.spentTotal);
+    var over = s.leftInBudget < 0;
+    el.sLeftL.textContent = over ? 'Over budget' : 'Left to spend';
+    el.sLeft.textContent = fmt(Math.abs(s.leftInBudget));
+    el.stLeft.classList.toggle('is-over', over);
+    el.stLeft.classList.toggle('is-left', !over && budget > 0);
+
+    var pctSpent = budget > 0 ? (s.spentTotal / budget) * 100 : (s.spentTotal > 0 ? 100 : 0);
+    el.bar.querySelector('i').style.width = Math.min(100, pctSpent) + '%';
+    el.bar.classList.toggle('over', pctSpent > 100);
+    el.barL.textContent = 'Spent ' + Math.round(pctSpent) + '%';
+    el.barR.textContent = 'Extras kept: ' + fmt(a.reserve);
+
+    var m, cls = '';
+    if (!G.isAmount(state.budget) || budget === 0) {
+      m = has ? 'Enter your total budget above to see each person’s suggested amount.' : 'Enter your total budget to see suggested amounts.';
+    } else if (!has) {
+      m = 'Now add the people you are buying for. ' + fmt(a.reserve) + ' is set aside for extras.';
+    } else if (a.overPlan > 0) {
+      cls = 'over';
+      m = 'Your set amounts are ' + fmt(a.overPlan) + ' more than the budget allows after extras. Lower a set amount, keep less for extras, or raise the budget.';
+    } else if (over) {
+      cls = 'over';
+      m = 'You have spent ' + fmt(-s.leftInBudget) + ' more than your total budget.';
+    } else if (a.unassigned > 0) {
+      cls = 'ok';
+      m = 'Everyone has a set amount. ' + fmt(a.unassigned) + ' of the budget is not assigned to anyone yet.';
+    } else {
+      cls = 'ok';
+      var n = state.people.length;
+      m = fmt(a.plannedTotal) + ' planned across ' + n + (n === 1 ? ' person' : ' people') + ', plus ' + fmt(a.reserve) + ' for extras. ' + fmt(s.stillToBuy) + ' still to buy.';
+    }
+    el.msg.textContent = m;
+    el.msg.className = 'msg' + (cls ? ' ' + cls : '');
+
+    // rows
+    var rows = el.list.children;
+    for (var r = 0; r < rows.length; r++) {
+      var li = rows[r];
+      var i = findPerson(li.dataset.id);
+      if (i < 0) continue;
+      var p = state.people[i];
+      var pp = s.perPerson[p.id];
+      var nm = displayName(p, i);
+      li.querySelector('[data-act="del"]').setAttribute('aria-label', 'Remove ' + nm);
+      li.setAttribute('aria-label', nm);
+      var plan = li.querySelector('.o-plan');
+      plan.textContent = '';
+      plan.appendChild(document.createTextNode('Planned '));
+      var b = document.createElement('strong'); b.textContent = fmt(pp.planned); plan.appendChild(b);
+      var em = document.createElement('em'); em.textContent = G.isAmount(p.fixedCents) ? ' set by you' : ' suggested'; plan.appendChild(em);
+      var st = li.querySelector('.o-status');
+      var stCls = '';
+      var txt;
+      if (pp.spent > pp.planned) { txt = 'Over by ' + fmt(pp.spent - pp.planned); stCls = 'over'; }
+      else if (pp.spent === 0) { txt = pp.planned > 0 ? 'Not bought yet' : (budget ? 'No room left in budget' : 'Waiting for a budget'); }
+      else if (pp.spent === pp.planned) { txt = 'Done, right on budget'; stCls = 'good'; }
+      else { txt = 'Bought, ' + fmt(pp.planned - pp.spent) + ' under'; stCls = 'good'; }
+      st.textContent = txt;
+      st.className = 'o-status' + (stCls ? ' ' + stCls : '');
+      li.classList.toggle('is-over', stCls === 'over');
+    }
+
+    el.empty.hidden = has;
+    el.groupsSec.hidden = !has;
+    renderGroups(s);
+    renderPrint(a, s);
+    save();
+  }
+
+  function cell(tag, text) { var c = document.createElement(tag); c.textContent = text; return c; }
+
+  function renderGroups(s) {
+    el.groupsBody.textContent = '';
+    var count = 0;
+    G.GROUPS.forEach(function (g) {
+      var d = s.groups[g];
+      if (!d.count) return;
+      count += d.count;
+      var tr = document.createElement('tr');
+      var th = cell('th', GROUP_LABEL[g]); th.scope = 'row'; tr.appendChild(th);
+      tr.appendChild(cell('td', String(d.count)));
+      tr.appendChild(cell('td', fmt(d.planned)));
+      tr.appendChild(cell('td', fmt(d.spent)));
+      el.groupsBody.appendChild(tr);
+    });
+    var totPlanned = G.GROUPS.reduce(function (t, g) { return t + s.groups[g].planned; }, 0);
+    el.gCount.textContent = String(count);
+    el.gPlanned.textContent = fmt(totPlanned);
+    el.gSpent.textContent = fmt(s.spentTotal);
+  }
+
+  function renderPrint(a, s) {
+    var d = new Date();
+    $('ps-meta').textContent = (state.people.length) + ' people · printed ' + d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    var tot = $('ps-totals'); tot.textContent = '';
+    [['Budget', a.budget], ['Extras kept', a.reserve], ['Planned gifts', a.plannedTotal], ['Spent', s.spentTotal], [s.leftInBudget < 0 ? 'Over budget' : 'Left to spend', Math.abs(s.leftInBudget)]]
+      .forEach(function (x) {
+        var div = document.createElement('div');
+        div.appendChild(cell('span', x[0])); div.appendChild(cell('b', fmt(x[1])));
+        tot.appendChild(div);
+      });
+    var body = $('ps-body'); body.textContent = '';
+    state.people.forEach(function (p, i) {
+      var pp = s.perPerson[p.id];
+      var tr = document.createElement('tr');
+      var box = cell('td', ''); box.className = 'box'; tr.appendChild(box);
+      tr.appendChild(cell('td', displayName(p, i)));
+      tr.appendChild(cell('td', GROUP_LABEL[p.group]));
+      tr.appendChild(cell('td', String(p.priority)));
+      tr.appendChild(cell('td', p.idea));
+      [pp.planned, pp.spent, pp.remaining].forEach(function (v) { var c = cell('td', fmt(v)); c.className = 'n'; tr.appendChild(c); });
+      body.appendChild(tr);
+    });
+    $('ps-planned').textContent = fmt(a.plannedTotal);
+    $('ps-spent').textContent = fmt(s.spentTotal);
+    $('ps-left').textContent = fmt(a.plannedTotal - s.spentTotal);
+  }
+
+  /* ---------- events ---------- */
+  el.budget.addEventListener('input', function () {
+    moneyField(el.budget, function (c, bad) {
+      state.budget = c;
+      el.budgetErr.textContent = bad ? 'Use numbers only, for example 750 or 750.50.' : '';
+    });
+    update();
+  });
+  el.budget.addEventListener('blur', function () {
+    if (G.isAmount(state.budget)) el.budget.value = fmt(state.budget).replace(state.currency, '');
+  });
+  el.currency.addEventListener('change', function () { state.currency = el.currency.value; update(); });
+  el.reserve.addEventListener('input', function () {
+    state.reservePct = el.reserve.value === '' ? 0 : clampPct(el.reserve.value);
+    update();
+  });
+  el.reserve.addEventListener('blur', function () { el.reserve.value = state.reservePct; });
+  el.round.addEventListener('change', function () { state.roundWhole = el.round.checked; update(); });
+
+  el.addForm.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var name = el.addName.value.trim();
+    var fixed = G.parseMoney(el.addFixed.value);
+    if (!name) {
+      el.addErr.textContent = 'Please enter a name.';
+      el.addName.setAttribute('aria-invalid', 'true');
+      el.addName.focus();
+      return;
+    }
+    if (typeof fixed === 'number' && isNaN(fixed)) {
+      el.addErr.textContent = 'Set amount should be a number, or leave it blank.';
+      el.addFixed.setAttribute('aria-invalid', 'true');
+      el.addFixed.focus();
+      return;
+    }
+    el.addErr.textContent = '';
+    el.addName.setAttribute('aria-invalid', 'false');
+    el.addFixed.setAttribute('aria-invalid', 'false');
+    var p = { id: newId(), name: name, group: el.addGroup.value, priority: +el.addPri.value, fixedCents: fixed, spentCents: null, idea: '' };
+    state.people.push(p);
+    el.list.appendChild(buildRow(p));
+    update();
+    el.addName.value = '';
+    el.addFixed.value = '';
+    el.addName.focus();
+    say('Added ' + name + '. ' + state.people.length + ' on your list.');
+  });
+
+  el.list.addEventListener('input', function (ev) {
+    var t = ev.target, f = t.dataset.f;
+    if (!f) return;
+    var li = t.closest('li'); var i = findPerson(li.dataset.id);
+    if (i < 0) return;
+    var p = state.people[i];
+    if (f === 'name') p.name = t.value.slice(0, 60);
+    else if (f === 'idea') p.idea = t.value.slice(0, 120);
+    else if (f === 'fixed') moneyField(t, function (c) { p.fixedCents = c; });
+    else if (f === 'spent') moneyField(t, function (c) { p.spentCents = c; });
+    update();
+  });
+  el.list.addEventListener('change', function (ev) {
+    var t = ev.target, f = t.dataset.f;
+    if (f !== 'group' && f !== 'priority') return;
+    var i = findPerson(t.closest('li').dataset.id);
+    if (i < 0) return;
+    if (f === 'group') state.people[i].group = t.value;
+    else state.people[i].priority = +t.value;
+    update();
+  });
+  el.list.addEventListener('focusout', function (ev) {
+    var t = ev.target, f = t.dataset.f;
+    if (f !== 'fixed' && f !== 'spent') return;
+    var i = findPerson(t.closest('li').dataset.id);
+    if (i < 0) return;
+    var v = f === 'fixed' ? state.people[i].fixedCents : state.people[i].spentCents;
+    if (t.getAttribute('aria-invalid') !== 'true') t.value = plainInput(v);
+  });
+  el.list.addEventListener('click', function (ev) {
+    var btn = ev.target.closest('[data-act="del"]');
+    if (!btn) return;
+    var li = btn.closest('li');
+    var i = findPerson(li.dataset.id);
+    if (i < 0) return;
+    var nm = displayName(state.people[i], i);
+    state.people.splice(i, 1);
+    var next = li.nextElementSibling || li.previousElementSibling;
+    li.remove();
+    update();
+    (next ? next.querySelector('[data-f="name"]') : el.addName).focus();
+    say('Removed ' + nm + '.');
+  });
+
+  $('load-example').addEventListener('click', function () {
+    if (!G.isAmount(state.budget) || state.budget === 0) state.budget = 60000;
+    [['Grandma Rose', 'family', 1, null], ['Dad', 'family', 1, null], ['Maya', 'kids', 1, null],
+     ['Leo', 'kids', 2, null], ['Priya', 'friends', 2, null], ['Ben', 'friends', 3, null],
+     ['Office gift swap', 'work', 3, 2500]].forEach(function (x) {
+      state.people.push({ id: newId(), name: x[0], group: x[1], priority: x[2], fixedCents: x[3], spentCents: null, idea: '' });
+    });
+    syncSettings();
+    renderList();
+    el.list.querySelector('[data-f="name"]').focus();
+    say('Example list loaded with ' + state.people.length + ' people.');
+  });
+
+  $('export').addEventListener('click', function () {
+    var budget = G.isAmount(state.budget) ? state.budget : 0;
+    var a = G.allocate({ budgetCents: budget, reservePct: state.reservePct, roundWhole: state.roundWhole, people: state.people });
+    var s = G.summarize(state.people, a);
+    var rows = [['Name', 'Group', 'Priority', 'Gift idea', 'Set amount', 'Planned', 'Spent', 'Left']];
+    state.people.forEach(function (p, i) {
+      var pp = s.perPerson[p.id];
+      rows.push([displayName(p, i), GROUP_LABEL[p.group], p.priority, p.idea,
+        G.isAmount(p.fixedCents) ? G.plainAmount(p.fixedCents) : '',
+        G.plainAmount(pp.planned), G.plainAmount(pp.spent), G.plainAmount(pp.remaining)]);
+    });
+    rows.push([]);
+    rows.push(['Budget', '', '', '', '', G.plainAmount(budget)]);
+    rows.push(['Kept for extras (' + state.reservePct + '%)', '', '', '', '', G.plainAmount(a.reserve)]);
+    rows.push(['Planned gifts', '', '', '', '', G.plainAmount(a.plannedTotal)]);
+    rows.push(['Spent', '', '', '', '', '', G.plainAmount(s.spentTotal)]);
+    rows.push(['Left in budget', '', '', '', '', '', '', G.plainAmount(s.leftInBudget)]);
+    try {
+      var blob = new Blob(['﻿' + G.toCSV(rows)], { type: 'text/csv;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = 'christmas-gift-budget.csv';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      say('CSV file downloaded.');
+    } catch (e) {
+      say('Sorry, this browser could not create the file.');
+    }
+  });
+
+  $('print').addEventListener('click', function () { update(); window.print(); });
+  $('clear').addEventListener('click', function () {
+    if (!window.confirm('Clear your budget and everyone on your list? This cannot be undone.')) return;
+    state = defaults();
+    syncSettings();
+    renderList();
+    el.budget.focus();
+    say('Everything cleared.');
+  });
+
+  function syncSettings() {
+    el.budget.value = G.isAmount(state.budget) ? fmt(state.budget).replace(state.currency, '') : '';
+    el.currency.value = state.currency;
+    el.reserve.value = state.reservePct;
+    el.round.checked = state.roundWhole;
+  }
+
+  load();
+  syncSettings();
+  renderList();
+})();
+</script>
+</body>
+</html>

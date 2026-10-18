@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Christmas Planning Tools | %%BRAND%%</title>
+<meta name="description" content="Free, private holiday planning tools from %%BRAND%%. Start with the Christmas Gift Budget Calculator: split one budget fairly, track spending, print or export.">
+<link rel="canonical" href="%%SITE%%">
+<meta name="theme-color" content="#1f4d3a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1d18" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="%%FAVICON%%">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="%%BRAND%%">
+<meta property="og:title" content="Free Christmas Planning Tools | %%BRAND%%">
+<meta property="og:description" content="Free, private holiday planning tools. Start with the Christmas Gift Budget Calculator.">
+<meta property="og:url" content="%%SITE%%">
+<meta property="og:image" content="%%SITE%%assets/og-gift-budget.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "%%BRAND%%",
+  "url": "%%SITE%%",
+  "publisher": { "@type": "Organization", "name": "%%BRAND%%", "url": "%%SITE%%" }
+}
+</script>
+<style>
+%%BASE_CSS%%
+.hero { padding-top: 3rem; padding-bottom: 1rem; }
+.tools { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 1rem; }
+@media (min-width: 760px) { .tools { grid-template-columns: 1fr 1fr; } }
+.tile { display: flex; flex-direction: column; gap: .6rem; height: 100%; padding: 1.4rem 1.25rem; text-decoration: none; color: var(--ink); border-top: 4px solid var(--evergreen); }
+a.tile:hover { color: var(--ink); border-top-color: var(--cranberry); }
+a.tile:hover h2 { color: var(--cranberry); }
+.tile h2 { font-size: 1.5rem; margin: 0; color: var(--evergreen); }
+.tile p { margin: 0; color: var(--muted); }
+.tile .go { margin-top: auto; padding-top: .4rem; font-weight: 600; color: var(--evergreen); }
+.tile.soon { border-top-color: var(--line); box-shadow: none; background: transparent; border-style: dashed; }
+.tile.soon h2 { color: var(--muted); }
+.feat { list-style: none; padding: 0; margin: .2rem 0 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+.feat li { font-size: .82rem; padding: .2rem .6rem; border-radius: 99px; background: var(--surface-2); color: var(--muted); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./" aria-current="page">%%LOGO%%<span>%%BRAND%%</span></a>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <div class="hero">
+    <p class="kicker">Free holiday tools</p>
+    <h1>Plan a calmer Christmas</h1>
+    <p class="lede">Small, careful tools for the busiest season. Free to use, no sign-up, and your information stays in your own browser.</p>
+  </div>
+  <ul class="tools">
+    <li>
+      <a class="card tile" href="christmas-gift-budget/">
+        <h2>Christmas Gift Budget Calculator</h2>
+        <p>Set one total, add everyone on your list by priority, and get a fair split that adds up to the cent. Track what you spend as you shop.</p>
+        <ul class="feat" aria-label="Features"><li>Works offline</li><li>Print list</li><li>CSV export</li></ul>
+        <span class="go">Open the calculator <span aria-hidden="true">&rarr;</span></span>
+      </a>
+    </li>
+    <li>
+      <div class="card tile soon">
+        <h2>More tools on the way</h2>
+        <p>Holiday meal timing, card lists and countdown planners are in the workshop. Check back as December gets closer.</p>
+      </div>
+    </li>
+  </ul>
+</main>
+%%FOOTER%%
+</body>
+</html>

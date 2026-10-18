@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas Gift Budget Calculator (Free) | %%BRAND%%</title>
+<meta name="description" content="Free Christmas gift budget calculator. Set a total, add the people on your list by priority, and get a fair split that adds up. Track spending, print or export to CSV.">
+<link rel="canonical" href="%%SITE%%christmas-gift-budget/">
+<meta name="theme-color" content="#1f4d3a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1d18" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="%%FAVICON%%">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="%%BRAND%%">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Christmas Gift Budget Calculator">
+<meta property="og:description" content="Set a holiday budget, add everyone you are buying for, and get a priority-weighted split that adds up to the cent. Free, private, printable.">
+<meta property="og:url" content="%%SITE%%christmas-gift-budget/">
+<meta property="og:image" content="%%SITE%%assets/og-gift-budget.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Christmas Gift Budget Calculator by %%BRAND%%">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Christmas Gift Budget Calculator",
+  "url": "%%SITE%%christmas-gift-budget/",
+  "description": "Set a total holiday budget, add recipients by group and priority, and get a suggested gift allocation that adds up exactly. Tracks spending per person, prints, and exports to CSV. Works offline; data stays in your browser.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript. Works offline.",
+  "isAccessibleForFree": true,
+  "inLanguage": "en",
+  "image": "%%SITE%%assets/og-gift-budget.png",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "%%BRAND%%", "url": "%%SITE%%" }
+}
+</script>
+<style>
+%%BASE_CSS%%
+/* ---- tool page ---- */
+.hero { padding-top: 2.5rem; padding-bottom: 1.5rem; }
+.hero .lede { margin-bottom: 0; }
+.privacy { display: flex; gap: .5rem; align-items: flex-start; margin-top: 1rem; color: var(--muted); font-size: .95rem; }
+.privacy svg { flex: none; width: 18px; height: 18px; margin-top: .2rem; fill: none; stroke: var(--evergreen); stroke-width: 2; }
+
+.tool { --cur: "$"; padding: 1.25rem 16px 1.5rem; }
+@media (min-width: 560px) { .tool { padding: 1.75rem 1.75rem 2rem; } }
+.tool h2 { font-size: 1.35rem; margin-bottom: .9rem; }
+.tool section + section { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+
+.fld { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.fld > span { font-size: .85rem; font-weight: 600; color: var(--muted); }
+.fld input, .fld select {
+  width: 100%; min-width: 0; min-height: 44px; padding: .5rem .7rem;
+  font: inherit; font-size: 1rem; color: var(--ink);
+  background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px;
+}
+.fld select { appearance: none; -webkit-appearance: none; padding-right: 2rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 16px) 52%, calc(100% - 11px) 52%; background-size: 5px 5px; background-repeat: no-repeat; }
+.fld input:hover, .fld select:hover { border-color: var(--muted); }
+.fld input:focus-visible, .fld select:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--evergreen); }
+.fld input[aria-invalid="true"] { border-color: var(--cranberry); background: var(--cranberry-soft); }
+.hint { font-size: .85rem; color: var(--muted); }
+.money { position: relative; display: block; }
+.money::before { content: var(--cur); position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.money input { padding-left: 1.7rem; }
+.pct { position: relative; display: block; }
+.pct::after { content: "%"; position: absolute; right: .8rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.pct input { padding-right: 2rem; }
+.check { display: flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .95rem; cursor: pointer; }
+.check input { width: 22px; height: 22px; accent-color: var(--evergreen); margin: 0; flex: none; }
+
+.settings { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+.settings .fld-budget { grid-column: 1 / -1; }
+.settings .fld-budget input { font-size: 1.35rem; min-height: 52px; font-weight: 600; }
+.settings .check { grid-column: 1 / -1; }
+@media (min-width: 760px) {
+  .settings { grid-template-columns: 2fr 1fr 1fr; align-items: end; }
+  .settings .fld-budget { grid-column: auto; }
+}
+
+.summary { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.5rem 0 1rem; }
+@media (min-width: 760px) { .summary { grid-template-columns: repeat(4, 1fr); } }
+.stat { background: var(--surface-2); border-radius: 12px; padding: .8rem .9rem; min-width: 0; }
+.stat-l { display: block; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.stat-v { display: block; font-family: var(--serif); font-size: clamp(1.3rem, 5.2vw, 1.75rem); line-height: 1.2; margin-top: .2rem; font-variant-numeric: lining-nums tabular-nums; }
+.stat.is-left .stat-v { color: var(--ok); }
+.stat.is-over { background: var(--cranberry-soft); }
+.stat.is-over .stat-v { color: var(--cranberry); }
+.bar { height: 10px; border-radius: 99px; background: var(--surface-2); overflow: hidden; position: relative; }
+.bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--evergreen); border-radius: 99px; transition: width .25s ease; }
+.bar.over i { background: var(--cranberry); }
+.bar-legend { display: flex; justify-content: space-between; gap: 1rem; font-size: .85rem; color: var(--muted); margin-top: .35rem; }
+.msg { margin: 1rem 0 0; padding: .75rem .9rem; border-radius: 10px; background: var(--surface-2); font-size: .98rem; }
+.msg.over { background: var(--cranberry-soft); color: var(--ink); border-left: 4px solid var(--cranberry); }
+.msg.ok { border-left: 4px solid var(--evergreen); }
+
+.add { display: grid; gap: .8rem; grid-template-columns: 1fr 1fr; align-items: end; }
+.add .fld-name { grid-column: 1 / -1; }
+.add .btn { width: 100%; }
+@media (min-width: 760px) {
+  .add { grid-template-columns: 2fr 1.1fr 1.3fr 1.1fr auto; }
+  .add .fld-name { grid-column: auto; }
+}
+.add-err { color: var(--cranberry); font-size: .9rem; margin: .5rem 0 0; min-height: 1.2em; }
+
+.people { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: .9rem; }
+.person { border: 1px solid var(--line); border-radius: 12px; padding: .9rem; background: var(--bg); }
+.person.is-over { border-color: var(--cranberry); }
+.p-head { display: flex; gap: .6rem; align-items: end; }
+.p-head .fld { flex: 1; }
+.p-head .fld input { font-weight: 600; }
+.icon-btn { flex: none; width: 44px; height: 44px; display: inline-grid; place-items: center; border-radius: 10px; border: 1.5px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.icon-btn:hover { color: var(--cranberry); border-color: var(--cranberry); }
+.icon-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; }
+.p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: .7rem; }
+@media (min-width: 760px) { .p-grid { grid-template-columns: repeat(4, 1fr); } }
+.p-idea { margin-top: .7rem; }
+.p-out { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem 1rem; margin: .75rem 0 0; font-size: .95rem; }
+.o-plan strong { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; font-variant-numeric: lining-nums tabular-nums; }
+.o-plan em { font-style: normal; color: var(--muted); font-size: .88rem; }
+.o-status { color: var(--muted); }
+.o-status.good { color: var(--ok); font-weight: 600; }
+.o-status.over { color: var(--cranberry); font-weight: 600; }
+.empty { margin: 1.25rem 0 0; padding: 1.25rem; border: 1.5px dashed var(--line); border-radius: 12px; color: var(--muted); text-align: center; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--evergreen); text-decoration: underline; text-underline-offset: .18em; cursor: pointer; }
+
+.groups { width: 100%; border-collapse: collapse; font-size: .97rem; font-variant-numeric: tabular-nums; }
+.groups th, .groups td { text-align: right; padding: .55rem .4rem; border-bottom: 1px solid var(--line); }
+.groups th:first-child, .groups td:first-child { text-align: left; }
+.groups thead th { font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.groups tfoot td { font-weight: 700; border-bottom: 0; }
+.toolbar { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+.toolbar .spacer { flex: 1; }
+.store-note { font-size: .88rem; color: var(--muted); margin: .9rem 0 0; }
+
+.content { margin-top: 3rem; }
+.content h2 { margin-top: 2.5rem; }
+.content h3 { margin: 1.6rem 0 .35rem; color: var(--evergreen); }
+.steps { padding-left: 1.3rem; margin: 0 0 1rem; }
+.steps li { margin-bottom: .55rem; padding-left: .25rem; }
+.steps li::marker { color: var(--cranberry); font-weight: 700; }
+
+.cta { padding: 1.5rem 16px; margin: 2.5rem 0; display: grid; gap: 1rem; align-items: center; }
+@media (min-width: 560px) { .cta { padding: 1.75rem; } }
+@media (min-width: 760px) { .cta { grid-template-columns: 1fr auto; } }
+.cta h2 { margin: 0 0 .35rem; font-size: 1.5rem; }
+.cta p { margin: 0; color: var(--muted); }
+.cta.planner { border-top: 4px solid var(--cranberry); }
+.cta.sampler { background: var(--surface-2); box-shadow: none; }
+.disclose { font-size: .85rem; color: var(--muted); margin: 2.5rem 0 -1.75rem; }
+
+.print-sheet { display: none; }
+@media print {
+  @page { margin: 14mm; }
+  :root { color-scheme: light; }
+  body { background: #fff !important; color: #000 !important; font-size: 10.5pt; }
+  .site-head, .skip, main > *:not(.print-sheet), .site-foot nav { display: none !important; }
+  .site-foot { margin: 0; padding: 6mm 0 0; border-top: 1px solid #999; color: #444; }
+  .site-foot .brand { color: #000; }
+  .print-sheet { display: block; color: #000; }
+  .print-sheet h1 { color: #000; font-size: 20pt; margin: 0 0 2mm; }
+  .print-sheet .ps-meta { color: #444; margin: 0 0 5mm; }
+  .ps-totals { display: flex; flex-wrap: wrap; gap: 3mm 4mm; margin: 0 0 5mm; }
+  .ps-totals div { border: 1px solid #999; border-radius: 2mm; padding: 2mm 3mm; flex: 1 1 0; min-width: 26mm; }
+  .ps-totals span { display: block; font-size: 8pt; text-transform: uppercase; letter-spacing: .05em; color: #444; }
+  .ps-totals b { font-size: 13pt; }
+  .ps-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .ps-table th, .ps-table td { border-bottom: 1px solid #bbb; padding: 1.8mm 1.5mm; text-align: left; vertical-align: top; }
+  .ps-table th { font-size: 8pt; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1.5px solid #000; }
+  .ps-table td.n, .ps-table th.n { text-align: right; white-space: nowrap; }
+  .ps-table td.box { width: 7mm; }
+  .ps-table td.box::before { content: ""; display: inline-block; width: 3.5mm; height: 3.5mm; border: 1px solid #000; }
+  .ps-table tr { break-inside: avoid; }
+  .ps-table tfoot td { font-weight: 700; border-bottom: 0; border-top: 1.5px solid #000; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#tool">Skip to the calculator</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">%%LOGO%%<span>%%BRAND%%</span></a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap hero">
+    <p class="kicker">Free holiday tool</p>
+    <h1>Christmas Gift Budget Calculator</h1>
+    <p class="lede">Set one total, list everyone you are buying for, and get a fair split by priority that adds up to the cent. Then track what you actually spend.</p>
+    <p class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Private by design: your list is saved only in this browser, on this device. It works offline too.</span></p>
+  </div>
+
+  <div class="wrap">
+    <div class="card tool" id="tool" tabindex="-1">
+      <section aria-labelledby="h-budget">
+        <h2 id="h-budget">1. Your budget</h2>
+        <div class="settings">
+          <label class="fld fld-budget"><span>Total gift budget</span>
+            <span class="money"><input id="budget" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="budget-err"></span>
+            <span class="hint" id="budget-err" aria-live="polite"></span>
+          </label>
+          <label class="fld"><span>Currency</span>
+            <select id="currency">
+              <option value="$">$ Dollar</option>
+              <option value="£">£ Pound</option>
+              <option value="€">€ Euro</option>
+              <option value="">No symbol</option>
+            </select>
+          </label>
+          <label class="fld"><span>Keep for extras</span>
+            <span class="pct"><input id="reserve" type="number" inputmode="numeric" min="0" max="50" step="1" aria-describedby="reserve-hint"></span>
+          </label>
+          <span class="hint" id="reserve-hint" style="grid-column:1/-1;margin-top:-.5rem">Extras covers wrapping, cards, postage and last-minute additions. 10% is a sensible start; up to 50% allowed.</span>
+          <label class="check"><input id="round" type="checkbox"> Round suggestions to whole amounts</label>
+        </div>
+
+        <div class="summary">
+          <div class="stat"><span class="stat-l">Budget</span><span class="stat-v" id="s-budget">–</span></div>
+          <div class="stat" id="st-planned"><span class="stat-l">Planned</span><span class="stat-v" id="s-planned">–</span></div>
+          <div class="stat"><span class="stat-l">Spent</span><span class="stat-v" id="s-spent">–</span></div>
+          <div class="stat" id="st-left"><span class="stat-l" id="s-left-l">Left to spend</span><span class="stat-v" id="s-left">–</span></div>
+        </div>
+        <div class="bar" id="bar" aria-hidden="true"><i></i></div>
+        <div class="bar-legend" aria-hidden="true"><span id="bar-l">Spent 0%</span><span id="bar-r">of budget</span></div>
+        <p class="msg" id="s-msg">Enter your total budget to see suggested amounts.</p>
+      </section>
+
+      <section aria-labelledby="h-people">
+        <h2 id="h-people">2. The people on your list</h2>
+        <form class="add" id="add-form" novalidate>
+          <label class="fld fld-name"><span>Name</span><input id="add-name" type="text" maxlength="60" autocomplete="off" placeholder="e.g. Grandma Rose" aria-describedby="add-err"></label>
+          <label class="fld"><span>Group</span>
+            <select id="add-group">%%GROUP_OPTIONS%%</select>
+          </label>
+          <label class="fld"><span>Priority</span>
+            <select id="add-pri">%%PRI_OPTIONS%%</select>
+          </label>
+          <label class="fld"><span>Set amount <small>(optional)</small></span><span class="money"><input id="add-fixed" type="text" inputmode="decimal" autocomplete="off" placeholder="Auto"></span></label>
+          <button class="btn" type="submit">Add person</button>
+        </form>
+        <p class="add-err" id="add-err" aria-live="polite"></p>
+        <p class="hint">Priority 1 gets three shares of the budget, priority 2 two shares, priority 3 one share. A set amount is kept exactly; everyone else shares what remains.</p>
+        <ul class="people" id="people" aria-label="Gift recipients"></ul>
+        <p class="empty" id="empty">Nobody on your list yet. Add someone above, or <button type="button" class="linkish" id="load-example">load an example list</button> to see how it works.</p>
+      </section>
+
+      <section aria-labelledby="h-groups" id="groups-sec" hidden>
+        <h2 id="h-groups">3. By group</h2>
+        <table class="groups">
+          <caption class="sr-only">Planned and spent totals by group</caption>
+          <thead><tr><th scope="col">Group</th><th scope="col">People</th><th scope="col">Planned</th><th scope="col">Spent</th></tr></thead>
+          <tbody id="groups-body"></tbody>
+          <tfoot><tr><td>All</td><td id="g-count"></td><td id="g-planned"></td><td id="g-spent"></td></tr></tfoot>
+        </table>
+      </section>
+
+      <div class="toolbar">
+        <button type="button" class="btn" id="export">Export CSV</button>
+        <button type="button" class="btn ghost" id="print">Print list</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn ghost small" id="clear">Clear everything</button>
+      </div>
+      <p class="store-note" id="store-note">Saved automatically in this browser.</p>
+      <p class="sr-only" id="announce" aria-live="polite" aria-atomic="true"></p>
+    </div>
+  </div>
+
+  <div class="wrap narrow content">
+    <h2 id="how">How to use the gift budget calculator</h2>
+    <ol class="steps">
+      <li><strong>Enter your total budget:</strong> everything you plan to spend on gifts this season, in one number.</li>
+      <li><strong>Choose how much to keep for extras.</strong> Wrapping, cards and postage come out of the same pocket, so set them aside first.</li>
+      <li><strong>Add each person</strong> with a group and a priority. Higher priority means a bigger share of what is left.</li>
+      <li><strong>Already know a price?</strong> Type it into <em>Set amount</em>. That person keeps it, and the rest is shared among everyone else.</li>
+      <li><strong>As you shop, enter what you paid</strong> in <em>Spent</em>. The totals show what is left and turn red if you go over.</li>
+    </ol>
+    <p>Your list saves itself in this browser. To keep a copy elsewhere or share it with a partner, use <strong>Export CSV</strong> (opens in any spreadsheet) or <strong>Print list</strong> for a tidy checklist to take shopping.</p>
+
+    <p class="disclose">We may earn from links to our own products.</p>
+    <aside class="card cta planner" aria-labelledby="cta-planner-h">
+      <div>
+        <h2 id="cta-planner-h">Prefer it on paper?</h2>
+        <p>The printable Christmas Planner from %%BRAND%% keeps your gift list, budget and holiday to-dos together in one place you can pin to the fridge.</p>
+      </div>
+      <a class="btn berry" href="{{PLANNER_URL}}">See the Christmas Planner</a>
+    </aside>
+
+    <h2 id="tips">Gift budgeting tips that actually help</h2>
+    <h3>Budget from cash, not hope</h3>
+    <p>Set the total at what you can pay off by the end of January, from savings or the next couple of paychecks. If last year's card statement disagrees with your memory, trust the statement. Most people underestimate because they count the gifts and forget everything around them.</p>
+    <h3>Keep 10 to 15% for the extras</h3>
+    <p>Wrapping paper, tape, cards, postage, batteries and the neighbour who surprises you with cookies add up fast. That is what the extras reserve is for. Whatever is left in December is a head start on next year.</p>
+    <h3>Decide the total first, then divide</h3>
+    <p>Working top-down stops the slow creep of "just a little more" on every person. When one gift runs over, take the difference from someone else's line or from the extras, rather than letting the total drift.</p>
+    <h3>Suggest a limit early</h3>
+    <p>Families and offices are often relieved when someone proposes a spending cap, or a gift exchange where each person buys for one drawn name. Raise it in October or early November, before anyone has started shopping.</p>
+    <h3>For kids: want, need, wear, read</h3>
+    <p>One thing they want, one they need, one to wear and one to read. It keeps things fair between siblings and puts a natural ceiling on the pile.</p>
+    <h3>Log it the moment you buy</h3>
+    <p>Type what you paid into <em>Spent</em> straight away, and keep receipts together, with gift receipts for anything that might be exchanged. Note return windows: some stores extend them for the holidays, many do not.</p>
+    <h3>A sale only saves money if it was on the list</h3>
+    <p>A discounted item nobody needed is spending, not saving. Watch shipping cut-off dates too, because paying for express delivery in the last week quietly cancels out the discounts you found.</p>
+    <h3>Start next year in January</h3>
+    <p>Divide this year's total by twelve and set that aside each month. Next December becomes a withdrawal instead of a bill.</p>
+
+    <aside class="card cta sampler" aria-labelledby="cta-sampler-h">
+      <div>
+        <h2 id="cta-sampler-h">Get a free printable sampler</h2>
+        <p>Join the %%BRAND%% email list and we will send you a free sampler of our holiday printables. Unsubscribe any time.</p>
+      </div>
+      <a class="btn" href="{{SAMPLER_URL}}">Send me the free sampler</a>
+    </aside>
+  </div>
+
+  <div class="print-sheet" id="print-sheet" aria-hidden="true">
+    <h1>Christmas gift budget</h1>
+    <p class="ps-meta" id="ps-meta"></p>
+    <div class="ps-totals" id="ps-totals"></div>
+    <table class="ps-table">
+      <thead><tr><th></th><th>Name</th><th>Group</th><th>Priority</th><th>Gift idea</th><th class="n">Planned</th><th class="n">Spent</th><th class="n">Left</th></tr></thead>
+      <tbody id="ps-body"></tbody>
+      <tfoot><tr><td></td><td colspan="4">Total</td><td class="n" id="ps-planned"></td><td class="n" id="ps-spent"></td><td class="n" id="ps-left"></td></tr></tfoot>
+    </table>
+  </div>
+</main>
+
+%%FOOTER%%
+
+<template id="row-tpl">
+  <li class="person">
+    <div class="p-head">
+      <label class="fld"><span>Name</span><input type="text" data-f="name" maxlength="60" autocomplete="off"></label>
+      <button type="button" class="icon-btn" data-act="del"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="p-grid">
+      <label class="fld"><span>Group</span><select data-f="group">%%GROUP_OPTIONS%%</select></label>
+      <label class="fld"><span>Priority</span><select data-f="priority">%%PRI_OPTIONS%%</select></label>
+      <label class="fld"><span>Set amount</span><span class="money"><input type="text" data-f="fixed" inputmode="decimal" autocomplete="off" placeholder="Auto"></span></label>
+      <label class="fld"><span>Spent</span><span class="money"><input type="text" data-f="spent" inputmode="decimal" autocomplete="off" placeholder="0"></span></label>
+    </div>
+    <label class="fld p-idea"><span>Gift idea</span><input type="text" data-f="idea" maxlength="120" autocomplete="off" placeholder="Optional"></label>
+    <p class="p-out"><span class="o-plan"></span><span class="o-status"></span></p>
+  </li>
+</template>
+
+<script id="core">
+%%CORE_JS%%
+</script>
+<script id="app">
+%%APP_JS%%
+</script>
+</body>
+</html>
