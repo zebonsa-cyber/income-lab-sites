@@ -4,7 +4,8 @@
   var G = window.GiftBudget;
   var KEY = 'winterwick.giftBudget.v1';
   var GROUP_LABEL = { family: 'Family', friends: 'Friends', work: 'Work', kids: 'Kids', other: 'Other' };
-  var PRI_LABEL = { 1: '1 – Top', 2: '2 – Middle', 3: '3 – Small' };
+  var FIELD_LABEL = { name: 'Name', group: 'Group', priority: 'Priority', fixed: 'Set amount', spent: 'Spent', idea: 'Gift idea' };
+  var PRI_LABEL ={ 1: '1 – Top', 2: '2 – Middle', 3: '3 – Small' };
 
   var $ = function (id) { return document.getElementById(id); };
   var el = {
@@ -178,6 +179,11 @@
       var nm = displayName(p, i);
       li.querySelector('[data-act="del"]').setAttribute('aria-label', 'Remove ' + nm);
       li.setAttribute('aria-label', nm);
+      // Contextual names; each starts with the visible label text (WCAG label-in-name).
+      for (var f in FIELD_LABEL) {
+        var inp = li.querySelector('[data-f="' + f + '"]');
+        if (inp) inp.setAttribute('aria-label', f === 'name' ? 'Name, person ' + (i + 1) : FIELD_LABEL[f] + ' for ' + nm);
+      }
       var plan = li.querySelector('.o-plan');
       plan.textContent = '';
       plan.appendChild(document.createTextNode('Planned '));

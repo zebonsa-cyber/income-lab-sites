@@ -43,9 +43,9 @@ def footer(root):
     year = 2026
     return f"""<footer class="site-foot">
   <div class="wrap">
-    <a class="brand" href="{root}">{LOGO}<span>{html.escape(BRAND)}</span></a>
-    <nav aria-label="Footer"><p><a href="{root}christmas-gift-budget/">Christmas Gift Budget Calculator</a></p></nav>
-    <p>&copy; {year} {html.escape(BRAND)}. Free tools for a calmer holiday. Nothing you type is sent anywhere.</p>
+    <a class="brand" href="{root or './'}">{LOGO}<span>{html.escape(BRAND)}</span></a>
+    <nav aria-label="Footer" class="foot-nav"><a href="{root}christmas-gift-budget/">Christmas Gift Budget Calculator</a><a href="{root}privacy/">Privacy</a></nav>
+    <p>&copy; {year} {html.escape(BRAND)}. Free tools for a calmer holiday. The calculator never sends your list anywhere.</p>
   </div>
 </footer>"""
 
@@ -88,8 +88,9 @@ def main():
     )
     write("christmas-gift-budget/index.html", tool)
     write("index.html", render("home.html", ""))
+    write("privacy/index.html", render("privacy.html", "../"))
 
-    urls = [(SITE, "1.0"), (SITE + "christmas-gift-budget/", "0.9")]
+    urls = [(SITE, "1.0"), (SITE + "christmas-gift-budget/", "0.9"), (SITE + "privacy/", "0.3")]
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u, pr in urls:
         sitemap.append(f"  <url><loc>{u}</loc><lastmod>{LASTMOD}</lastmod><priority>{pr}</priority></url>")

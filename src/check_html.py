@@ -107,7 +107,7 @@ def check(path):
 
 def main():
     bad = 0
-    for rel in ("index.html", "christmas-gift-budget/index.html"):
+    for rel in ("index.html", "christmas-gift-budget/index.html", "privacy/index.html"):
         errs, nld = check(ROOT / rel)
         status = "ok  " if not errs else "FAIL"
         print(f"{status} {rel} (JSON-LD blocks: {nld})")

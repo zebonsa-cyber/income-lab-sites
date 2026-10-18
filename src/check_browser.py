@@ -43,6 +43,8 @@ with sync_playwright() as p:
         if SHOTS:
             page.screenshot(path=str(SHOTS / f"home-375-{scheme}.png"), full_page=True)
 
+        page.goto((ROOT / "privacy" / "index.html").as_uri())
+        check(overflow(page) <= 0, f"[{scheme}] privacy: no horizontal scroll at 375px")
         page.goto(TOOL)
         page.evaluate("localStorage.clear()")
         page.reload()
@@ -58,6 +60,11 @@ with sync_playwright() as p:
             return { sum: rows.reduce((a, b) => a + b, 0), n: rows.length };
         }""")
         check(planned["n"] == 7, f"[{scheme}] example list has 7 rows")
+        lbl = page.locator('#people [data-f="spent"]').first.get_attribute("aria-label")
+        check(lbl == "Spent for Grandma Rose", f"[{scheme}] contextual aria-label ({lbl})")
+        ph = page.evaluate("getComputedStyle(document.getElementById('add-name'), '::placeholder').color")
+        mu = page.evaluate("(() => { const s = document.createElement('span'); s.style.color = 'var(--muted)'; document.body.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; })()")
+        check(ph == mu, f"[{scheme}] placeholder uses muted token ({ph})")
         extras = page.evaluate("Number(document.getElementById('bar-r').textContent.replace(/[^0-9.]/g,''))")
         check(abs(planned["sum"] + extras - 600) < 0.001, f"[{scheme}] rows {planned['sum']} + extras {extras} = 600")
         if SHOTS:
