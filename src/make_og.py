@@ -3,7 +3,7 @@
 import pathlib
 from PIL import Image, ImageDraw, ImageFont
 
-BRAND = "Winterwick Studio"
+BRAND = "Zebonsa"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 FONTS = pathlib.Path("/home/claude/lab-build/planner/fonts")  # OFL: Fraunces, Lato
 W, H = 1200, 630

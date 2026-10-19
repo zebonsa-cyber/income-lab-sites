@@ -9,7 +9,7 @@ import html
 import pathlib
 import urllib.parse
 
-BRAND = "Winterwick Studio"
+BRAND = "Zebonsa"
 SITE = "https://zebonsa-cyber.github.io/income-lab-sites/"
 LASTMOD = datetime.date(2026, 10, 18).isoformat()
 

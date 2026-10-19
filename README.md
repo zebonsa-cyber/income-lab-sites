@@ -1,6 +1,6 @@
 # income-lab-sites
 
-Free holiday planning tools by Winterwick Studio, served with GitHub Pages.
+Free holiday planning tools by Zebonsa, served with GitHub Pages.
 
 - `index.html`: landing page
 - `christmas-gift-budget/`: Christmas Gift Budget Calculator (single file, inline CSS and JS, works offline)

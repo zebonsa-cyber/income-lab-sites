@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var G = window.GiftBudget;
-  var KEY = 'winterwick.giftBudget.v1';
+  var KEY = 'zebonsa.giftBudget.v1';
   var GROUP_LABEL = { family: 'Family', friends: 'Friends', work: 'Work', kids: 'Kids', other: 'Other' };
   var FIELD_LABEL = { name: 'Name', group: 'Group', priority: 'Priority', fixed: 'Set amount', spent: 'Spent', idea: 'Gift idea' };
   var PRI_LABEL ={ 1: '1 – Top', 2: '2 – Middle', 3: '3 – Small' };
